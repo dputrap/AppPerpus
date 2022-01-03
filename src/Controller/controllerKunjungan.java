@@ -24,6 +24,7 @@ public class controllerKunjungan {
     public void bersihkan(){
         //memanggil variable swing di view
         vK.getNoKunjunganView().setText("");
+        vK.getNoAnggotaView().setText("");
         vK.getTglKunjunganView().setText("");
         vK.getTujuanKunjunganView().setText("");
         vK.getNamaView().setText("");
@@ -57,7 +58,6 @@ public class controllerKunjungan {
         mK.setNoKunjungModel(vK.getNoKunjunganView().getText());
         mK.setTglKunjungModel(vK.getTglKunjunganView().getText());
         mK.setTujuanKunjung(vK.getTujuanKunjunganView().getText());
-        mK.setNamaModel(vK.getNamaView().getText());
 
         mK.updateDataKunjung();
         bersihkan();
@@ -66,9 +66,9 @@ public class controllerKunjungan {
     
     public void simpan(){
         mK = new modelKunjungan();
+        mK.setNoAnggotaModel(vK.getNoAnggotaView().getText());
         mK.setTglKunjungModel(vK.getTglKunjunganView().getText());
         mK.setTujuanKunjung(vK.getTujuanKunjunganView().getText());
-        mK.setNamaModel(vK.getNamaView().getText());
         
         mK.simpanDataKunjung();
         bersihkan();

@@ -33,9 +33,10 @@ public class viewKunjunganInternal extends javax.swing.JInternalFrame {
         cK = new controllerKunjungan(this);
         model = new DefaultTableModel();
         tabelKunjungan.setModel(model);
-        model.addColumn("ID");
+        model.addColumn("NO");
         model.addColumn("TGL");
         model.addColumn("TUJUAN");
+        model.addColumn("NOANGGOTA");
         model.addColumn("NAMA");
 
         tampilDataKunjungan();
@@ -48,7 +49,11 @@ public class viewKunjunganInternal extends javax.swing.JInternalFrame {
     }
 
     public JTextField getNamaView() {
-        return namaView;
+        return noAnggotaView;
+    }
+
+    public JTextField getNoAnggotaView() {
+        return noAnggotaView;
     }
 
     public JTextField getNoKunjunganView() {
@@ -84,7 +89,9 @@ public class viewKunjunganInternal extends javax.swing.JInternalFrame {
         model.getDataVector().removeAllElements();
         model.fireTableDataChanged();
         
-        String sql = "Select * FROM datakunjungan";
+        String sql = "SELECT anggota.noAnggota, anggota.nama, datakunjungan.noKunjung, "
+                + "datakunjungan.tglKunjung, datakunjungan.tujuanKunjung FROM anggota, datakunjungan "
+                + "WHERE anggota.noAnggota = datakunjungan.noAnggota";
         
         try{
             Statement stat = (Statement) koneksiDatabase.getKoneksi().createStatement();
@@ -92,11 +99,12 @@ public class viewKunjunganInternal extends javax.swing.JInternalFrame {
             
             while(res.next()){
                 Object[] hasil;
-                hasil = new Object[4];
+                hasil = new Object[5];
                 hasil[0] = res.getString("noKunjung");
                 hasil[1] = res.getString("tglKunjung");
                 hasil[2] = res.getString("tujuanKunjung");
-                hasil[3] = res.getString("nama");
+                hasil[3] = res.getString("noAnggota");
+                hasil[4] = res.getString("nama");
 
                 model.addRow(hasil);                
             }
@@ -117,7 +125,7 @@ public class viewKunjunganInternal extends javax.swing.JInternalFrame {
             noKunjunganView.setText(no);
             tglKunjunganView.setText(tgl);
             tujuanKunjunganView.setText(tjn);
-            namaView.setText(nama);
+            noAnggotaView.setText(nama);
             
             cK.kontrolButtonDua();
         }
@@ -128,10 +136,13 @@ public class viewKunjunganInternal extends javax.swing.JInternalFrame {
         model.fireTableDataChanged();
         
         if (data.equals("")){
-            sql = "SELECT anggota.nama, datakunjungan.noKunjung, datakunjungan.tglKunjung,"
-                + "tujuanKunjung FROM anggota, datakunjungan";
-        }else sql = "SELECT anggota.nama, datakunjungan.noKunjung, datakunjungan.tglkKunjung,"
-                + "tujuanKunjung FROM anggota, datakunjungan WHERE nama LIKE '"+data+"%'";
+            sql = "SELECT anggota.noAnggota, anggota.nama, datakunjungan.noKunjung, "
+                + "datakunjungan.tglKunjung, datakunjungan.tujuanKunjung FROM anggota, datakunjungan "
+                + "WHERE anggota.noAnggota = datakunjungan.noAnggota";
+        }else sql = "SELECT anggota.noAnggota, anggota.nama, datakunjungan.noKunjung, "
+                + "datakunjungan.tglKunjung, datakunjungan.tujuanKunjung FROM anggota, datakunjungan "
+                + "WHERE anggota.noAnggota = datakunjungan.noAnggota AND "
+                + "anggota.nama LIKE '"+data+"%'";
         
         try{
             Statement stat = (Statement)koneksiDatabase.getKoneksi().createStatement();
@@ -139,11 +150,12 @@ public class viewKunjunganInternal extends javax.swing.JInternalFrame {
             
             while(res.next()){
             Object[] hasil;
-            hasil = new Object[4];
+            hasil = new Object[5];
             hasil[0] = res.getString("noKunjung");
             hasil[1] = res.getString("tglKunjung");
             hasil[2] = res.getString("tujuanKunjung");
-            hasil[3] = res.getString("nama");
+            hasil[3] = res.getString("noAnggota");
+            hasil[4] = res.getString("nama");
             
             model.addRow(hasil);
             }
@@ -167,7 +179,7 @@ public class viewKunjunganInternal extends javax.swing.JInternalFrame {
         noKunjunganView = new javax.swing.JTextField();
         tglKunjunganView = new javax.swing.JTextField();
         tujuanKunjunganView = new javax.swing.JTextField();
-        namaView = new javax.swing.JTextField();
+        noAnggotaView = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelKunjungan = new javax.swing.JTable();
@@ -177,6 +189,10 @@ public class viewKunjunganInternal extends javax.swing.JInternalFrame {
         tombolSimpan = new javax.swing.JButton();
         tombolBatal = new javax.swing.JButton();
         tombolHapus = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        namaView = new javax.swing.JTextField();
+
+        setClosable(true);
 
         jLabel1.setText("No Kunjungan");
 
@@ -184,7 +200,9 @@ public class viewKunjunganInternal extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Tujuan Kunjungan");
 
-        jLabel4.setText("Nama Anggota");
+        noKunjunganView.setEditable(false);
+
+        jLabel4.setText("No Anggota");
 
         tabelKunjungan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -240,6 +258,10 @@ public class viewKunjunganInternal extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel6.setText("Nama Anggota");
+
+        namaView.setEditable(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -251,7 +273,8 @@ public class viewKunjunganInternal extends javax.swing.JInternalFrame {
                         .addComponent(jLabel1)
                         .addComponent(jLabel3)
                         .addComponent(jLabel2)
-                        .addComponent(jLabel4))
+                        .addComponent(jLabel4)
+                        .addComponent(jLabel6))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(tombolBatal)
@@ -259,17 +282,18 @@ public class viewKunjunganInternal extends javax.swing.JInternalFrame {
                         .addGap(21, 21, 21)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tombolSimpan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tombolHapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(62, 62, 62)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(tujuanKunjunganView, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
                             .addComponent(noKunjunganView, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tglKunjunganView, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(namaView)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tombolSimpan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(tombolHapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(noAnggotaView)
+                            .addComponent(namaView))))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -290,7 +314,7 @@ public class viewKunjunganInternal extends javax.swing.JInternalFrame {
                     .addComponent(jLabel5)
                     .addComponent(namaAnggota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
@@ -302,17 +326,21 @@ public class viewKunjunganInternal extends javax.swing.JInternalFrame {
                         .addGap(14, 14, 14)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(namaView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                            .addComponent(noAnggotaView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(namaView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tombolUbah)
                             .addComponent(tombolSimpan))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tombolBatal)
                             .addComponent(tombolHapus)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         pack();
@@ -361,9 +389,11 @@ public class viewKunjunganInternal extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField namaAnggota;
     private javax.swing.JTextField namaView;
+    private javax.swing.JTextField noAnggotaView;
     private javax.swing.JTextField noKunjunganView;
     private javax.swing.JTable tabelKunjungan;
     private javax.swing.JTextField tglKunjunganView;
