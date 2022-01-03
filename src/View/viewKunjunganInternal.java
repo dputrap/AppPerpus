@@ -120,12 +120,14 @@ public class viewKunjunganInternal extends javax.swing.JInternalFrame {
             String no = String.valueOf(tabelKunjungan.getValueAt(index, 0));
             String tgl = String.valueOf(tabelKunjungan.getValueAt(index, 1));
             String tjn = String.valueOf(tabelKunjungan.getValueAt(index, 2));
-            String nama = String.valueOf(tabelKunjungan.getValueAt(index, 3));
+            String noa = String.valueOf(tabelKunjungan.getValueAt(index, 3));
+            String nama = String.valueOf(tabelKunjungan.getValueAt(index, 4));
 
             noKunjunganView.setText(no);
             tglKunjunganView.setText(tgl);
             tujuanKunjunganView.setText(tjn);
-            noAnggotaView.setText(nama);
+            noAnggotaView.setText(noa);
+            namaView.setText(nama);
             
             cK.kontrolButtonDua();
         }
@@ -139,6 +141,7 @@ public class viewKunjunganInternal extends javax.swing.JInternalFrame {
             sql = "SELECT anggota.noAnggota, anggota.nama, datakunjungan.noKunjung, "
                 + "datakunjungan.tglKunjung, datakunjungan.tujuanKunjung FROM anggota, datakunjungan "
                 + "WHERE anggota.noAnggota = datakunjungan.noAnggota";
+            
         }else sql = "SELECT anggota.noAnggota, anggota.nama, datakunjungan.noKunjung, "
                 + "datakunjungan.tglKunjung, datakunjungan.tujuanKunjung FROM anggota, datakunjungan "
                 + "WHERE anggota.noAnggota = datakunjungan.noAnggota AND "

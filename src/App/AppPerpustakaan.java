@@ -9,6 +9,7 @@ package App;
 import View.viewAnggotaInternal;
 import View.viewBukuInternal;
 import View.viewKunjunganInternal;
+import View.viewPeminjamanInternal;
 import javax.swing.JFrame;
 
 /**
@@ -43,6 +44,9 @@ public class AppPerpustakaan extends javax.swing.JFrame {
         menuKunjungan = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         menuBuku = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        menuPeminjaman = new javax.swing.JMenuItem();
+        menuPengembalian = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -97,6 +101,26 @@ public class AppPerpustakaan extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu3);
 
+        jMenu4.setText("Transaksi");
+
+        menuPeminjaman.setText("Menu Peminjaman");
+        menuPeminjaman.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuPeminjamanActionPerformed(evt);
+            }
+        });
+        jMenu4.add(menuPeminjaman);
+
+        menuPengembalian.setText("Menu Pengembalian");
+        menuPengembalian.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuPengembalianActionPerformed(evt);
+            }
+        });
+        jMenu4.add(menuPengembalian);
+
+        jMenuBar1.add(jMenu4);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -145,6 +169,20 @@ public class AppPerpustakaan extends javax.swing.JFrame {
         buku.show();
     }//GEN-LAST:event_menuBukuActionPerformed
 
+    private void menuPeminjamanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPeminjamanActionPerformed
+        // TODO add your handling code here:
+        viewPeminjamanInternal pinjam = new viewPeminjamanInternal();
+        this.desktopUtama.add(pinjam);
+        pinjam.show();       
+    }//GEN-LAST:event_menuPeminjamanActionPerformed
+
+    private void menuPengembalianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPengembalianActionPerformed
+        // TODO add your handling code here:
+        /*viewPengembalianInternal kembali = new viewPengembalianInternal();
+        this.desktopUtama.add(kembali);
+        kembali.show();*/
+    }//GEN-LAST:event_menuPengembalianActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -187,9 +225,12 @@ public class AppPerpustakaan extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem menuAnggota;
     private javax.swing.JMenuItem menuBuku;
     private javax.swing.JMenuItem menuKunjungan;
+    private javax.swing.JMenuItem menuPeminjaman;
+    private javax.swing.JMenuItem menuPengembalian;
     // End of variables declaration//GEN-END:variables
 }
