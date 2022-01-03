@@ -19,7 +19,7 @@ public class modelKunjungan {
     private String noKunjungModel;
     private String tglKunjungModel;
     private String tujuanKunjung;
-    private String namaModel;
+    
     
     koneksiDatabase koneksi = new koneksiDatabase();
     
@@ -50,21 +50,12 @@ public class modelKunjungan {
     public void setTujuanKunjung(String tujuanKunjung) {
         this.tujuanKunjung = tujuanKunjung;
     }
-
-    public String getNamaModel() {
-        return namaModel;
-    }
-
-    public void setNamaModel(String namaModel) {
-        this.namaModel = namaModel;
-    }
     
     public void simpanDataKunjung(){
         
         //inisialisasi query untuk insert ke db
         String sql = ("INSERT INTO datakunjungan (tglKunjung, tujuanKunjung, nama) "
-                + "VALUES ('"+getTglKunjungModel()+"', '"+getTujuanKunjung()+"'"
-                + ", '"+getNamaModel()+"')");
+                + "VALUES ('"+getTglKunjungModel()+"', '"+getTujuanKunjung()+"')");
         try{
         //preparedstatement
         PreparedStatement eksekusi = koneksi.getKoneksi().prepareStatement(sql);
@@ -87,7 +78,7 @@ public class modelKunjungan {
         */
         String sql = "UPDATE datakunjungan SET tglKunjung = '"+getTglKunjungModel()+"'"
                 + " ,tujuanKunjung = '"+getTujuanKunjung()+"'"
-                + " ,nama = '"+getNamaModel()+"' WHERE noKunjung = '"+getNoKunjungModel()+"'";
+                + "WHERE noKunjung = '"+getNoKunjungModel()+"'";
         try{
         //preparedstatement
         PreparedStatement eksekusi = koneksi.getKoneksi().prepareStatement(sql);

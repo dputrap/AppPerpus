@@ -128,8 +128,10 @@ public class viewKunjunganInternal extends javax.swing.JInternalFrame {
         model.fireTableDataChanged();
         
         if (data.equals("")){
-            sql = "SELECT * FROM datakunjungan";
-        }else sql = "SELECT * FROM datakunjungan WHERE nama LIKE '"+data+"%'";
+            sql = "SELECT anggota.nama, datakunjungan.noKunjung, datakunjungan.tglKunjung,"
+                + "tujuanKunjung FROM anggota, datakunjungan";
+        }else sql = "SELECT anggota.nama, datakunjungan.noKunjung, datakunjungan.tglkKunjung,"
+                + "tujuanKunjung FROM anggota, datakunjungan WHERE nama LIKE '"+data+"%'";
         
         try{
             Statement stat = (Statement)koneksiDatabase.getKoneksi().createStatement();
