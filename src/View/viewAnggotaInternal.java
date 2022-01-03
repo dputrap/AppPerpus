@@ -1,0 +1,397 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package View;
+
+import Controller.controllerAnggota;
+import Database.koneksiDatabase;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JButton;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
+/**
+ *
+ * @author Danu Putra
+ */
+public class viewAnggotaInternal extends javax.swing.JInternalFrame {
+    private controllerAnggota cA;
+    /**
+     * Creates new form viewAnggotaInternal
+     */
+    private DefaultTableModel model;
+    private String sql = "";
+    public viewAnggotaInternal() {
+        initComponents();
+        
+        cA = new controllerAnggota(this);
+        model = new DefaultTableModel();
+        tabelAnggota.setModel(model);
+        model.addColumn("NOANGGOTA");
+        model.addColumn("NAMA");
+        model.addColumn("KELAS");
+        model.addColumn("TTL");
+        model.addColumn("ALAMAT");
+        
+        tampilDataAnggota();
+        cA.kontrolButton();
+        
+    }
+
+    public JTextArea getAlamatView() {
+        return alamatView;
+    }
+
+    public JTextField getKelasView() {
+        return kelasView;
+    }
+
+    public JTextField getNamaView() {
+        return namaView;
+    }
+
+    public JTextField getNoAnggotaView() {
+        return noAnggotaView;
+    }
+
+    public JButton getTombolBatal() {
+        return tombolBatal;
+    }
+
+    public JButton getTombolHapus() {
+        return tombolHapus;
+    }
+
+    public JButton getTombolSimpan() {
+        return tombolSimpan;
+    }
+
+    public JButton getTombolUbah() {
+        return tombolUbah;
+    }
+
+    public JTextField getTtlView() {
+        return ttlView;
+    }
+    
+    private void tampilDataAnggota(){
+        
+        model.getDataVector().removeAllElements();
+        model.fireTableDataChanged();
+        
+        String sql = "Select * FROM anggota";
+        
+        try{
+            Statement stat = (Statement) koneksiDatabase.getKoneksi().createStatement();
+            ResultSet res = stat.executeQuery (sql);
+            
+            while(res.next()){
+                Object[] hasil;
+                hasil = new Object[5];
+                hasil[0] = res.getString("noAnggota");
+                hasil[1] = res.getString("nama");
+                hasil[2] = res.getString("kelas");
+                hasil[3] = res.getString("ttl");
+                hasil[4] = res.getString("alamat");
+                
+                model.addRow(hasil);                
+            }
+        } catch (SQLException ex){
+            Logger.getLogger(viewAnggotaInternal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void ambilDataTabel(){
+            
+            int index = tabelAnggota.getSelectedRow();
+            
+            String no = String.valueOf(tabelAnggota.getValueAt(index, 0));
+            String nama = String.valueOf(tabelAnggota.getValueAt(index, 1));
+            String kls = String.valueOf(tabelAnggota.getValueAt(index, 2));
+            String ttl = String.valueOf(tabelAnggota.getValueAt(index, 3));
+            String almt = String.valueOf(tabelAnggota.getValueAt(index, 4));
+            
+            noAnggotaView.setText(no);
+            namaView.setText(nama);
+            kelasView.setText(kls);
+            ttlView.setText(ttl);
+            alamatView.setText(almt);
+            
+            cA.kontrolButtonDua();
+        }
+    
+    private void tampilCariDataAnggota(String data){
+        
+        model.getDataVector().removeAllElements();
+        model.fireTableDataChanged();
+        
+        if (data.equals("")){
+            sql = "SELECT * FROM anggota";
+        }else sql = "SELECT * FROM datakunjungan WHERE nama LIKE '"+data+"%'";
+        
+        try{
+            Statement stat = (Statement)koneksiDatabase.getKoneksi().createStatement();
+            ResultSet res = stat.executeQuery(sql);
+            
+            while(res.next()){
+            Object[] hasil;
+            hasil = new Object[5];
+            hasil[0] = res.getString("noAnggota");
+            hasil[1] = res.getString("nama");
+            hasil[2] = res.getString("kelas");
+            hasil[3] = res.getString("ttl");
+            hasil[4] = res.getString("alamat");
+            
+            model.addRow(hasil);
+            }
+        }
+        catch (SQLException ex){
+                Logger.getLogger(viewListKunjungan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        noAnggotaView = new javax.swing.JTextField();
+        namaView = new javax.swing.JTextField();
+        kelasView = new javax.swing.JTextField();
+        ttlView = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        alamatView = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tabelAnggota = new javax.swing.JTable();
+        tombolHapus = new javax.swing.JButton();
+        tombolBatal = new javax.swing.JButton();
+        tombolSimpan = new javax.swing.JButton();
+        tombolUbah = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        cariNama = new javax.swing.JTextField();
+
+        setClosable(true);
+
+        jLabel1.setText("Nomor Anggota");
+
+        jLabel2.setText("Nama");
+
+        jLabel3.setText("Kelas");
+
+        jLabel4.setText("Tempat Tanggal Lahir");
+
+        jLabel5.setText("Alamat");
+
+        alamatView.setColumns(20);
+        alamatView.setRows(5);
+        jScrollPane1.setViewportView(alamatView);
+
+        tabelAnggota.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tabelAnggota.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelAnggotaMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tabelAnggota);
+
+        tombolHapus.setText("Hapus");
+        tombolHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tombolHapusActionPerformed(evt);
+            }
+        });
+
+        tombolBatal.setText("Batal");
+        tombolBatal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tombolBatalActionPerformed(evt);
+            }
+        });
+
+        tombolSimpan.setText("Simpan");
+        tombolSimpan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tombolSimpanActionPerformed(evt);
+            }
+        });
+
+        tombolUbah.setText("Ubah");
+        tombolUbah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tombolUbahActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Cari Nama Anggota");
+
+        cariNama.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cariNamaKeyPressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5))
+                        .addGap(25, 25, 25)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(namaView, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(ttlView)
+                            .addComponent(kelasView)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(noAnggotaView)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(tombolHapus)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tombolBatal)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(tombolSimpan)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tombolUbah)))
+                .addGap(38, 38, 38)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 587, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(18, 18, 18)
+                        .addComponent(cariNama, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(noAnggotaView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(cariNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(namaView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(kelasView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(ttlView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tombolHapus)
+                            .addComponent(tombolBatal)
+                            .addComponent(tombolSimpan)
+                            .addComponent(tombolUbah)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void tombolHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolHapusActionPerformed
+        // TODO add your handling code here:
+        cA.deleteData();
+        tampilDataAnggota();
+    }//GEN-LAST:event_tombolHapusActionPerformed
+
+    private void tombolBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolBatalActionPerformed
+        // TODO add your handling code here:
+        cA.kontrolButton();
+        cA.bersihkan();
+    }//GEN-LAST:event_tombolBatalActionPerformed
+
+    private void tombolSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolSimpanActionPerformed
+        // TODO add your handling code here:
+        cA.simpanData();
+        tampilDataAnggota();
+        cA.bersihkan();
+    }//GEN-LAST:event_tombolSimpanActionPerformed
+
+    private void tombolUbahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolUbahActionPerformed
+        // TODO add your handling code here:
+        cA.updateData();
+        tampilDataAnggota();
+        cA.bersihkan();
+    }//GEN-LAST:event_tombolUbahActionPerformed
+
+    private void tabelAnggotaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelAnggotaMouseClicked
+        // TODO add your handling code here:
+        ambilDataTabel();
+    }//GEN-LAST:event_tabelAnggotaMouseClicked
+
+    private void cariNamaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cariNamaKeyPressed
+        // TODO add your handling code here:
+        tampilCariDataAnggota(cariNama.getText());
+    }//GEN-LAST:event_cariNamaKeyPressed
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea alamatView;
+    private javax.swing.JTextField cariNama;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextField kelasView;
+    private javax.swing.JTextField namaView;
+    private javax.swing.JTextField noAnggotaView;
+    private javax.swing.JTable tabelAnggota;
+    private javax.swing.JButton tombolBatal;
+    private javax.swing.JButton tombolHapus;
+    private javax.swing.JButton tombolSimpan;
+    private javax.swing.JButton tombolUbah;
+    private javax.swing.JTextField ttlView;
+    // End of variables declaration//GEN-END:variables
+}
