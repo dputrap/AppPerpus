@@ -21,6 +21,21 @@ public class controllerPeminjaman {
         this.vP = vP;
     }
     
+    
+    public void foreign(){
+        
+        vP.getNoAnggotaView().setEnabled(false);
+        vP.getIdBukuView().setEnabled(false);
+        
+    }
+    
+    public void enable(){
+        
+        vP.getNoAnggotaView().setEnabled(true);
+        vP.getIdBukuView().setEnabled(true);
+        
+    }
+    
     public void bersihkan(){
         //memanggil variable swing di view
         vP.getIdPinjamView().setText("");

@@ -10,6 +10,7 @@ import View.viewAnggotaInternal;
 import View.viewBukuInternal;
 import View.viewKunjunganInternal;
 import View.viewPeminjamanInternal;
+import View.viewPengembalianInternal;
 import javax.swing.JFrame;
 
 /**
@@ -64,6 +65,7 @@ public class AppPerpustakaan extends javax.swing.JFrame {
         );
 
         jLabel1.setFont(new java.awt.Font("Sylfaen", 1, 18)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Aplikasi Pengelolaan Perpustakaan");
 
         jMenu1.setText("File");
@@ -134,7 +136,7 @@ public class AppPerpustakaan extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(129, 129, 129))
+                .addGap(130, 130, 130))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,9 +180,9 @@ public class AppPerpustakaan extends javax.swing.JFrame {
 
     private void menuPengembalianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPengembalianActionPerformed
         // TODO add your handling code here:
-        /*viewPengembalianInternal kembali = new viewPengembalianInternal();
+        viewPengembalianInternal kembali = new viewPengembalianInternal();
         this.desktopUtama.add(kembali);
-        kembali.show();*/
+        kembali.show();
     }//GEN-LAST:event_menuPengembalianActionPerformed
 
     /**
