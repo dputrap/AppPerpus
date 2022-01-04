@@ -79,8 +79,11 @@ public class modelAnggota {
         
         //inisialisasi query untuk insert ke db
         String sql = ("INSERT INTO anggota (noAnggota, nama, kelas, ttl, alamat) "
-                + "VALUES ('"+getNoAnggotaModel()+"', '"+getNamaModel()+"'"
-                + ", '"+getKelasModel()+"', '"+getTtlModel()+"', '"+getAlamatModel()+"')");
+                + "VALUES ('"+getNoAnggotaModel()+"', "
+                + "'"+getNamaModel()+"', "
+                + "'"+getKelasModel()+"', "
+                + "'"+getTtlModel()+"', "
+                + "'"+getAlamatModel()+"')");
         try{
         //preparedstatement
         PreparedStatement eksekusi = koneksi.getKoneksi().prepareStatement(sql);

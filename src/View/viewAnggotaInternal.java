@@ -153,7 +153,7 @@ public class viewAnggotaInternal extends javax.swing.JInternalFrame {
             }
         }
         catch (SQLException ex){
-                Logger.getLogger(viewListKunjungan.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(viewAnggotaInternal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     /**

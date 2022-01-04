@@ -135,7 +135,7 @@ public class viewBukuInternal extends javax.swing.JInternalFrame {
             }
         }
         catch (SQLException ex){
-                Logger.getLogger(viewListKunjungan.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(viewBukuInternal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
