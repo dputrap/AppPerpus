@@ -4,7 +4,7 @@
  
  Final Project berupa java application hasil studi kasus perpustakaan
  
- Aplikasi ini dibuat di Netbeans 8.2
+ Aplikasi ini dibuat dengan menggunakan IDE Netbeans 8.2
  
 # Collaborators
 
