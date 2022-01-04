@@ -229,9 +229,10 @@ public class viewPeminjamanInternal extends javax.swing.JInternalFrame {
         tabelPeminjaman = new javax.swing.JTable();
 
         setClosable(true);
+        setTitle("Menu Peminjaman");
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Input Data"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Input Data", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Sylfaen", 1, 14))); // NOI18N
 
         jLabel4.setText("Tanggal Pinjam");
 
@@ -321,7 +322,7 @@ public class viewPeminjamanInternal extends javax.swing.JInternalFrame {
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 204));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Proses"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Proses", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Sylfaen", 1, 14))); // NOI18N
 
         tombolUbah.setText("Ubah");
         tombolUbah.addActionListener(new java.awt.event.ActionListener() {
@@ -381,7 +382,7 @@ public class viewPeminjamanInternal extends javax.swing.JInternalFrame {
         );
 
         jPanel3.setBackground(new java.awt.Color(204, 204, 255));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Cari"));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cari Nama Anggota", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Sylfaen", 1, 14))); // NOI18N
 
         jLabel9.setText("Cari Nama");
 
@@ -413,7 +414,7 @@ public class viewPeminjamanInternal extends javax.swing.JInternalFrame {
         );
 
         jPanel4.setBackground(new java.awt.Color(255, 204, 204));
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Tabel Peminjaman"));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tabel Peminjaman", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Sylfaen", 1, 14))); // NOI18N
 
         tabelPeminjaman.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -494,7 +495,7 @@ public class viewPeminjamanInternal extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         cP.kontrolButton();
         cP.bersihkan();
-        cP.enable();
+        //cP.enable();
     }//GEN-LAST:event_tombolBatalActionPerformed
 
     private void tombolSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolSimpanActionPerformed
@@ -513,7 +514,7 @@ public class viewPeminjamanInternal extends javax.swing.JInternalFrame {
     private void tabelPeminjamanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelPeminjamanMouseClicked
         // TODO add your handling code here:
         ambilDataTabel();
-        cP.foreign();
+        //cP.foreign();
     }//GEN-LAST:event_tabelPeminjamanMouseClicked
 
     private void cariNamaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cariNamaKeyPressed

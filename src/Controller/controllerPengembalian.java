@@ -20,7 +20,7 @@ public class controllerPengembalian {
     public controllerPengembalian(viewPengembalianInternal vPI){
         this.vPI = vPI;
     }
-    
+      
     public void bersihkan(){
         //memanggil variable swing di view
         vPI.getIdPengembalianView().setText("");

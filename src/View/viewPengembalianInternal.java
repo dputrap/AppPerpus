@@ -26,7 +26,7 @@ private controllerPengembalian cPE;
      * Creates new form viewInternalPengembalian
      */
     private DefaultTableModel model;
-    //private String sql = "";
+    private String sql = "";
     public viewPengembalianInternal() {
         initComponents();
         
@@ -40,6 +40,7 @@ private controllerPengembalian cPE;
         model.addColumn("STATUS BUKU");
         model.addColumn("TGL");
         model.addColumn("DENDA");
+        model.addColumn("NAMA");
         
         tampilDataPengembalian();
         cPE.kontrolButton();
@@ -107,7 +108,7 @@ private controllerPengembalian cPE;
         model.getDataVector().removeAllElements();
         model.fireTableDataChanged();
         
-        String sql = "SELECT anggota.noAnggota, buku.idBuku, peminjaman.idPinjam, pengembalian.idPengembalian, "
+        String sql = "SELECT anggota.noAnggota, anggota.nama, buku.idBuku, peminjaman.idPinjam, pengembalian.idPengembalian, "
                 + "pengembalian.statusBuku, pengembalian.tglPengembalian, pengembalian.denda "
                 + "FROM anggota, buku, peminjaman, pengembalian "
                 + "WHERE anggota.noAnggota = pengembalian.noAnggota AND "
@@ -120,7 +121,7 @@ private controllerPengembalian cPE;
             
             while(res.next()){
                 Object[] hasil;
-                hasil = new Object[7];
+                hasil = new Object[8];
                 hasil[0] = res.getString("idPengembalian");
                 hasil[1] = res.getString("idPinjam");
                 hasil[2] = res.getString("noAnggota");
@@ -128,6 +129,7 @@ private controllerPengembalian cPE;
                 hasil[4] = res.getString("statusBuku");
                 hasil[5] = res.getString("tglPengembalian");
                 hasil[6] = res.getString("denda");
+                hasil[7] = res.getString("nama");
                 
                 
                 model.addRow(hasil);                
@@ -148,6 +150,7 @@ private controllerPengembalian cPE;
             String sta = String.valueOf(tabelPengembalian.getValueAt(index, 4));
             String tgl = String.valueOf(tabelPengembalian.getValueAt(index, 5));
             String den = String.valueOf(tabelPengembalian.getValueAt(index, 6));
+            String nama = String.valueOf(tabelPengembalian.getValueAt(index, 7));
 
             
             idPengembalianView.setText(idpe);
@@ -157,10 +160,54 @@ private controllerPengembalian cPE;
             statusBukuView.setText(sta);
             tglPengembalianView.setText(tgl);
             dendaView.setText(den);
+            cariNamaView.setText(nama);
            
             cPE.kontrolButtonDua();
         }
-    
+        
+        private void tampilCariDataPengembalian(String data){
+        
+        model.getDataVector().removeAllElements();
+        model.fireTableDataChanged();
+        
+        if (data.equals("")){
+            sql = "SELECT anggota.noAnggota, buku.idBuku, peminjaman.idPinjam, pengembalian.idPengembalian, "
+                + "pengembalian.statusBuku, pengembalian.tglPengembalian, pengembalian.denda "
+                + "FROM anggota, buku, peminjaman, pengembalian "
+                + "WHERE anggota.noAnggota = pengembalian.noAnggota AND "
+                + "buku.idBuku = pengembalian.idBuku AND "
+                + "peminjaman.idPinjam = pengembalian.idPinjam";
+        }else sql = "SELECT anggota.noAnggota, anggota.nama, buku.idBuku, peminjaman.idPinjam, pengembalian.idPengembalian, "
+                + "pengembalian.statusBuku, pengembalian.tglPengembalian, pengembalian.denda "
+                + "FROM anggota, buku, peminjaman, pengembalian "
+                + "WHERE anggota.noAnggota = pengembalian.noAnggota AND "
+                + "buku.idBuku = pengembalian.idBuku AND "
+                + "peminjaman.idPinjam = pengembalian.idPinjam AND "
+                + "anggota.nama LIKE '"+data+"%'";
+        
+        try{
+            Statement stat = (Statement)koneksiDatabase.getKoneksi().createStatement();
+            ResultSet res = stat.executeQuery(sql);
+            
+            while(res.next()){
+            Object[] hasil;
+            hasil = new Object[8];
+            hasil[0] = res.getString("idPengembalian");
+            hasil[1] = res.getString("idPinjam");
+            hasil[2] = res.getString("noAnggota");
+            hasil[3] = res.getString("idBuku");
+            hasil[4] = res.getString("statusBuku");
+            hasil[5] = res.getString("tglPengembalian");
+            hasil[6] = res.getString("denda");
+            hasil[7] = res.getString("nama");
+            
+            model.addRow(hasil);
+            }
+        }
+        catch (SQLException ex){
+                Logger.getLogger(viewPeminjamanInternal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -198,9 +245,15 @@ private controllerPengembalian cPE;
         tombolBatal = new javax.swing.JButton();
         tombolSimpan = new javax.swing.JButton();
         tombolHapus = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        cariNamaView = new javax.swing.JTextField();
+
+        setClosable(true);
+        setTitle("Menu Pengembalian");
 
         jPanel1.setBackground(java.awt.Color.pink);
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Tabel Pengembalian"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tabel Pengembalian", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Sylfaen", 1, 14))); // NOI18N
 
         tabelPengembalian.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -237,7 +290,7 @@ private controllerPengembalian cPE;
         );
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Hitung Denda"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Hitung Denda", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Sylfaen", 1, 14))); // NOI18N
 
         tombolHitung.setText("Hitung");
         tombolHitung.addActionListener(new java.awt.event.ActionListener() {
@@ -261,7 +314,7 @@ private controllerPengembalian cPE;
         );
 
         jPanel3.setBackground(new java.awt.Color(204, 255, 204));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Input Data Pengembalian"));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Input Data Pengembalian", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Sylfaen", 1, 14))); // NOI18N
 
         jLabel1.setText("ID Pengembalian");
 
@@ -356,7 +409,7 @@ private controllerPengembalian cPE;
         );
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 204));
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Proses"));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Proses", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Sylfaen", 1, 14))); // NOI18N
 
         tombolUbah.setText("Ubah");
         tombolUbah.addActionListener(new java.awt.event.ActionListener() {
@@ -414,21 +467,51 @@ private controllerPengembalian cPE;
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jPanel5.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cari Nama Anggota", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Sylfaen", 1, 14))); // NOI18N
+
+        jLabel8.setText("Cari Nama");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel8)
+                .addGap(18, 18, 18)
+                .addComponent(cariNamaView, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(cariNamaView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(13, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -440,6 +523,8 @@ private controllerPengembalian cPE;
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -476,11 +561,11 @@ private controllerPengembalian cPE;
 
     private void tombolHitungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolHitungActionPerformed
         // TODO add your handling code here:
-        int total;
+        int denda;
         int a = 1000;
         int b = (Integer.parseInt(getTelatView().getText()));
-        total = a*b;
-        dendaView.setText(String.valueOf(total));
+        denda = a*b;
+        dendaView.setText(String.valueOf(denda));
     }//GEN-LAST:event_tombolHitungActionPerformed
 
     private void tabelPengembalianMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelPengembalianMouseClicked
@@ -490,6 +575,7 @@ private controllerPengembalian cPE;
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField cariNamaView;
     private javax.swing.JTextField dendaView;
     private javax.swing.JTextField idBukuView;
     private javax.swing.JTextField idPengembalianView;
@@ -502,10 +588,12 @@ private controllerPengembalian cPE;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField noAnggotaView;
