@@ -62,7 +62,8 @@ public class modelBuku {
         
         //inisialisasi query untuk insert ke db
         String sql = ("INSERT INTO buku (idBuku, namaBuku, stok) "
-                + "VALUES ('"+getIdBukuModel()+"', '"+getNamaBukuModel()+"'"
+                + "VALUES ('"+getIdBukuModel()+"', "
+                + "'"+getNamaBukuModel()+"'"
                 + ", '"+getStok()+"')");
         try{
         //preparedstatement
@@ -80,8 +81,8 @@ public class modelBuku {
     public void updateDataBuku(){
         
         String sql = "UPDATE buku SET idBuku = '"+getIdBukuModel()+"'"
-                + " ,nama = '"+getNamaBukuModel()+"'"
-                + " ,alamat = '"+getStok()+"' WHERE idBuku = '"+getIdBukuModel()+"'";
+                + " ,namaBuku = '"+getNamaBukuModel()+"'"
+                + " ,stok = '"+getStok()+"' WHERE idBuku = '"+getIdBukuModel()+"'";
         try{
         //preparedstatement
         PreparedStatement eksekusi = koneksi.getKoneksi().prepareStatement(sql);

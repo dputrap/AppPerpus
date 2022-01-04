@@ -19,6 +19,7 @@ public class modelPeminjaman {
     private String idPinjamModel;
     private String noAnggotaModel;
     private String idBukuModel;
+    private String statusBukuModel;
     private String tglPinjamModel;
     private String durasiPinjamModel;
     
@@ -38,6 +39,14 @@ public class modelPeminjaman {
 
     public String getNoAnggotaModel() {
         return noAnggotaModel;
+    }
+
+    public String getStatusBukuModel() {
+        return statusBukuModel;
+    }
+
+    public void setStatusBukuModel(String statusBukuModel) {
+        this.statusBukuModel = statusBukuModel;
     }
 
     public void setNoAnggotaModel(String noAnggotaModel) {
@@ -71,9 +80,10 @@ public class modelPeminjaman {
     public void simpanDataPinjam(){
         
         //inisialisasi query untuk insert ke db
-        String sql = ("INSERT INTO peminjaman (noAnggota, idBuku, tglPinjam, durasiPinjam) "
+        String sql = ("INSERT INTO peminjaman (noAnggota, idBuku, statusBuku, tglPinjam, durasiPinjam) "
                 + "VALUES ('"+getNoAnggotaModel()+"', "
                 + "'"+getIdBukuModel()+"', "
+                + "'"+getStatusBukuModel()+"', "
                 + "'"+getTglPinjamModel()+"', "
                 + "'"+getDurasiPinjamModel()+"')");
         try{
@@ -110,9 +120,10 @@ public class modelPeminjaman {
     public void updateDataPinjam(){
         
         String sql = "UPDATE peminjaman SET noAnggota = '"+getNoAnggotaModel()+"'"
-                + " ,no = '"+getIdBukuModel()+"'"
-                + " ,jenisKelamin = '"+getTglPinjamModel()+"'"
-                + " ,alamat = '"+getDurasiPinjamModel()+"' WHERE idPinjam = '"+getIdPinjamModel()+"'";
+                + " ,idBuku = '"+getIdBukuModel()+"'"
+                + " ,statusBuku = '"+getIdBukuModel()+"'"
+                + " ,tglPinjam = '"+getTglPinjamModel()+"'"
+                + " ,durasiPinjam = '"+getDurasiPinjamModel()+"' WHERE idPinjam = '"+getIdPinjamModel()+"'";
         try{
         //preparedstatement
         PreparedStatement eksekusi = koneksi.getKoneksi().prepareStatement(sql);

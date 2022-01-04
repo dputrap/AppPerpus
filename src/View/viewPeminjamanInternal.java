@@ -37,6 +37,7 @@ public class viewPeminjamanInternal extends javax.swing.JInternalFrame {
         model.addColumn("ID PINJAM");
         model.addColumn("NO ANGGOTA");
         model.addColumn("ID BUKU");
+        model.addColumn("STATUS BUKU");
         model.addColumn("TGL");
         model.addColumn("DURASI");
         model.addColumn("NAMA");
@@ -70,6 +71,10 @@ public class viewPeminjamanInternal extends javax.swing.JInternalFrame {
         return tombolBatal;
     }
 
+    public JTextField getStatusBukuView() {
+        return statusBukuView;
+    }
+
     public JButton getTombolHapus() {
         return tombolHapus;
     }
@@ -96,7 +101,8 @@ public class viewPeminjamanInternal extends javax.swing.JInternalFrame {
         model.fireTableDataChanged();
         
         String sql = "Select anggota.noAnggota, anggota.nama, buku.idBuku, peminjaman.idPinjam, "
-                + "peminjaman.tglPinjam, peminjaman.durasiPinjam FROM anggota, buku, peminjaman "
+                + "peminjaman.statusBuku, peminjaman.tglPinjam, peminjaman.durasiPinjam "
+                + "FROM anggota, buku, peminjaman "
                 + "WHERE anggota.noAnggota = peminjaman.noAnggota AND "
                 + "buku.idBuku = peminjaman.idBuku";
         
@@ -106,13 +112,14 @@ public class viewPeminjamanInternal extends javax.swing.JInternalFrame {
             
             while(res.next()){
                 Object[] hasil;
-                hasil = new Object[6];
+                hasil = new Object[7];
                 hasil[0] = res.getString("idPinjam");
                 hasil[1] = res.getString("noAnggota");
                 hasil[2] = res.getString("idBuku");
-                hasil[3] = res.getString("tglPinjam");
-                hasil[4] = res.getString("durasiPinjam");
-                hasil[5] = res.getString("nama");
+                hasil[3] = res.getString("statusBuku");
+                hasil[4] = res.getString("tglPinjam");
+                hasil[5] = res.getString("durasiPinjam");
+                hasil[6] = res.getString("nama");
                 
                 model.addRow(hasil);                
             }
@@ -128,13 +135,15 @@ public class viewPeminjamanInternal extends javax.swing.JInternalFrame {
             String idp = String.valueOf(tabelPeminjaman.getValueAt(index, 0));
             String noa = String.valueOf(tabelPeminjaman.getValueAt(index, 1));
             String idb = String.valueOf(tabelPeminjaman.getValueAt(index, 2));
-            String tgl = String.valueOf(tabelPeminjaman.getValueAt(index, 3));
-            String drs = String.valueOf(tabelPeminjaman.getValueAt(index, 4));
-            String nama = String.valueOf(tabelPeminjaman.getValueAt(index, 5));
+            String sta = String.valueOf(tabelPeminjaman.getValueAt(index, 3));
+            String tgl = String.valueOf(tabelPeminjaman.getValueAt(index, 4));
+            String drs = String.valueOf(tabelPeminjaman.getValueAt(index, 5));
+            String nama = String.valueOf(tabelPeminjaman.getValueAt(index, 6));
             
             idPinjamView.setText(idp);
             noAnggotaView.setText(noa);
             idBukuView.setText(idb);
+            statusBukuView.setText(sta);
             tglPinjamView.setText(tgl);
             durasiPinjamView.setText(drs);
             namaAnggotaView.setText(nama);
@@ -149,11 +158,13 @@ public class viewPeminjamanInternal extends javax.swing.JInternalFrame {
         
         if (data.equals("")){
             sql = "Select anggota.noAnggota, anggota.nama, buku.idBuku, peminjaman.idPinjam, "
-                + "peminjaman.tglPinjam, peminjaman.durasiPinjam FROM anggota, buku, peminjaman "
+                + "peminjaman.statusBuku, peminjaman.tglPinjam, peminjaman.durasiPinjam "
+                + "FROM anggota, buku, peminjaman "
                 + "WHERE anggota.noAnggota = peminjaman.noAnggota AND "
                 + "buku.idBuku = peminjaman.idBuku";
         }else sql = "Select anggota.noAnggota, anggota.nama, buku.idBuku, peminjaman.idPinjam, "
-                + "peminjaman.tglPinjam, peminjaman.durasiPinjam FROM anggota, buku, peminjaman "
+                + "peminjaman.statusBuku, peminjaman.tglPinjam, peminjaman.durasiPinjam "
+                + "FROM anggota, buku, peminjaman "
                 + "WHERE anggota.noAnggota = peminjaman.noAnggota AND "
                 + "buku.idBuku = peminjaman.idBuku AND "
                 + "anggota.nama LIKE '"+data+"%'";
@@ -168,9 +179,10 @@ public class viewPeminjamanInternal extends javax.swing.JInternalFrame {
             hasil[0] = res.getString("idPinjam");
             hasil[1] = res.getString("noAnggota");
             hasil[2] = res.getString("idBuku");
-            hasil[3] = res.getString("tglPinjam");
-            hasil[4] = res.getString("durasiPinjam");
-            hasil[5] = res.getString("nama");
+            hasil[3] = res.getString("statusBuku");
+            hasil[4] = res.getString("tglPinjam");
+            hasil[5] = res.getString("durasiPinjam");
+            hasil[6] = res.getString("nama");
             
             model.addRow(hasil);
             }
@@ -211,6 +223,8 @@ public class viewPeminjamanInternal extends javax.swing.JInternalFrame {
         namaAnggotaView = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         cariNama = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        statusBukuView = new javax.swing.JTextField();
 
         setClosable(true);
 
@@ -288,6 +302,14 @@ public class viewPeminjamanInternal extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel10.setText("Status Buku");
+
+        statusBukuView.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                statusBukuViewKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -311,32 +333,30 @@ public class viewPeminjamanInternal extends javax.swing.JInternalFrame {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(idPinjamView, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 128, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
-                            .addComponent(jLabel9))
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel10))
                         .addGap(79, 79, 79)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(namaAnggotaView, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                            .addComponent(cariNama))
-                        .addGap(56, 56, 56))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(97, 97, 97)
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(tombolUbah, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tombolSimpan)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tombolBatal, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tombolHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(61, 61, 61))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(statusBukuView, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+                            .addComponent(cariNama)
+                            .addComponent(namaAnggotaView)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(97, 97, 97)
+                        .addComponent(jLabel6))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(tombolUbah, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tombolSimpan)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tombolBatal, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tombolHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(70, 70, 70))
             .addGroup(layout.createSequentialGroup()
                 .addGap(99, 99, 99)
                 .addComponent(jLabel7)
@@ -353,23 +373,25 @@ public class viewPeminjamanInternal extends javax.swing.JInternalFrame {
                 .addComponent(jLabel7)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(idPinjamView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel8)
-                        .addComponent(namaAnggotaView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(noAnggotaView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cariNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(idBukuView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(idPinjamView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel8)
+                                .addComponent(namaAnggotaView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(noAnggotaView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(statusBukuView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(idBukuView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cariNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
@@ -377,11 +399,8 @@ public class viewPeminjamanInternal extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(durasiPinjamView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel5)))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel6)
                         .addGap(17, 17, 17)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -389,7 +408,9 @@ public class viewPeminjamanInternal extends javax.swing.JInternalFrame {
                             .addComponent(tombolUbah)
                             .addComponent(tombolBatal)
                             .addComponent(tombolHapus))))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
@@ -431,6 +452,10 @@ public class viewPeminjamanInternal extends javax.swing.JInternalFrame {
         tampilCariDataPinjam(cariNama.getText());
     }//GEN-LAST:event_cariNamaKeyPressed
 
+    private void statusBukuViewKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_statusBukuViewKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_statusBukuViewKeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField cariNama;
@@ -438,6 +463,7 @@ public class viewPeminjamanInternal extends javax.swing.JInternalFrame {
     private javax.swing.JTextField idBukuView;
     private javax.swing.JTextField idPinjamView;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -449,6 +475,7 @@ public class viewPeminjamanInternal extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField namaAnggotaView;
     private javax.swing.JTextField noAnggotaView;
+    private javax.swing.JTextField statusBukuView;
     private javax.swing.JTable tabelPeminjaman;
     private javax.swing.JTextField tglPinjamView;
     private javax.swing.JButton tombolBatal;

@@ -64,7 +64,9 @@ public class modelKunjungan {
         
         //inisialisasi query untuk insert ke db
         String sql = ("INSERT INTO datakunjungan (noAnggota, tglKunjung, tujuanKunjung) "
-                + "VALUES ('"+getNoAnggotaModel()+"','"+getTglKunjungModel()+"', '"+getTujuanKunjung()+"')");
+                + "VALUES ('"+getNoAnggotaModel()+"', "
+                + "'"+getTglKunjungModel()+"', "
+                + "'"+getTujuanKunjung()+"')");
         try{
         //preparedstatement
         PreparedStatement eksekusi = koneksi.getKoneksi().prepareStatement(sql);
@@ -85,7 +87,8 @@ public class modelKunjungan {
                 + "VALUES ('"+getNamaPelangganModel()+"', '"+getNomorHpModel()+"'"
                 + ", '"+getJenisKelaminModel()+"', '"+getUmur()+"', '"+getAlamat()+"')");
         */
-        String sql = "UPDATE datakunjungan SET tglKunjung = '"+getTglKunjungModel()+"'"
+        String sql = "UPDATE datakunjungan SET noAnggota = '"+getNoAnggotaModel()+"'"
+                + " ,tglKunjung = '"+getTglKunjungModel()+"'"
                 + " ,tujuanKunjung = '"+getTujuanKunjung()+"'"
                 + "WHERE noKunjung = '"+getNoKunjungModel()+"'";
         try{

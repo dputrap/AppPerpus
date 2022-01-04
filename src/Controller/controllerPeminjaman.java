@@ -26,6 +26,7 @@ public class controllerPeminjaman {
         vP.getIdPinjamView().setText("");
         vP.getNoAnggotaView().setText("");
         vP.getIdBukuView().setText("");
+        vP.getStatusBukuView().setText("");
         vP.getTglPinjamView().setText("");
         vP.getDurasiPinjamView().setText("");
         vP.getNamaAnggotaView().setText("");
@@ -59,6 +60,7 @@ public class controllerPeminjaman {
         mP.setIdPinjamModel(vP.getIdPinjamView().getText());
         mP.setNoAnggotaModel(vP.getNoAnggotaView().getText());
         mP.setIdBukuModel(vP.getIdBukuView().getText());
+        mP.setStatusBukuModel(vP.getStatusBukuView().getText());
         mP.setTglPinjamModel(vP.getTglPinjamView().getText());
         mP.setDurasiPinjamModel(vP.getDurasiPinjamView().getText());
         
@@ -71,6 +73,7 @@ public class controllerPeminjaman {
         mP = new modelPeminjaman();
         mP.setNoAnggotaModel(vP.getNoAnggotaView().getText());
         mP.setIdBukuModel(vP.getIdBukuView().getText());
+        mP.setStatusBukuModel(vP.getStatusBukuView().getText());
         mP.setTglPinjamModel(vP.getTglPinjamView().getText());
         mP.setDurasiPinjamModel(vP.getDurasiPinjamView().getText());
         
