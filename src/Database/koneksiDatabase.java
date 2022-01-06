@@ -11,9 +11,11 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,10 +23,11 @@ import java.util.logging.Logger;
  */
 public class koneksiDatabase {
     //inisialisasi variabel dengan Connection file class JDBC
-    private static Connection conn;
+    public static Connection conn;
     //kemudian fungsi class Propertien untuk memanggil file konfig database yang kita buat sebelumnya
     private static Properties propert = new Properties();
-    
+    //inisialisasi variable statement
+    public Statement stm;
     //membuat fungsi untuk koneksi ke database
     public static Connection getKoneksi()throws SQLException{
         //cek apakah ada koneksi
@@ -49,4 +52,15 @@ public class koneksiDatabase {
             System.out.println("sukses terkoneksi");
         }
     }
+    
+    public void login(){
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn=DriverManager.getConnection("jdbc:mysql://localhost/perpus", "root", "");
+            stm = conn.createStatement();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "koneksi gagal "+e.getMessage());
+        }
+    }
+    
 }

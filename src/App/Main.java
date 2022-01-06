@@ -13,7 +13,11 @@ public class Main {
     
     public static void main(String[] args) {
         
-        AppPerpustakaan app = new AppPerpustakaan();
-        app.setVisible(true);
+        /*AppPerpustakaan app = new AppPerpustakaan();
+        app.setVisible(true);*/
+        
+        FormLogin fL = new FormLogin();
+        fL.setVisible(true);
+        
     }
 }
