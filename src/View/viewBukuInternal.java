@@ -169,6 +169,7 @@ public class viewBukuInternal extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setMaximizable(true);
+        setTitle("Menu Buku");
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 204));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tabel Buku", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Sylfaen", 1, 14))); // NOI18N

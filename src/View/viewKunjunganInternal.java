@@ -200,6 +200,8 @@ public class viewKunjunganInternal extends javax.swing.JInternalFrame {
         tabelKunjungan = new javax.swing.JTable();
 
         setClosable(true);
+        setTitle("Data Kunjungan");
+        setToolTipText("");
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Input Data Kunjungan", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Sylfaen", 1, 14))); // NOI18N

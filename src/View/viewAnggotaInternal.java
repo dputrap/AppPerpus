@@ -190,6 +190,7 @@ public class viewAnggotaInternal extends javax.swing.JInternalFrame {
         cariNama = new javax.swing.JTextField();
 
         setClosable(true);
+        setTitle("Menu Anggota");
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 204));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tabel Anggota", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Sylfaen", 1, 14))); // NOI18N
