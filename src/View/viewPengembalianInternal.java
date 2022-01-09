@@ -171,7 +171,7 @@ private controllerPengembalian cPE;
         model.fireTableDataChanged();
         
         if (data.equals("")){
-            sql = "SELECT anggota.noAnggota, buku.idBuku, peminjaman.idPinjam, pengembalian.idPengembalian, "
+            sql = "SELECT anggota.noAnggota, anggota.nama, buku.idBuku, peminjaman.idPinjam, pengembalian.idPengembalian, "
                 + "pengembalian.statusBuku, pengembalian.tglPengembalian, pengembalian.denda "
                 + "FROM anggota, buku, peminjaman, pengembalian "
                 + "WHERE anggota.noAnggota = pengembalian.noAnggota AND "
@@ -472,6 +472,12 @@ private controllerPengembalian cPE;
 
         jLabel8.setText("Cari Nama");
 
+        cariNamaView.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cariNamaViewKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -572,6 +578,11 @@ private controllerPengembalian cPE;
         // TODO add your handling code here:
         ambilDataTabel();
     }//GEN-LAST:event_tabelPengembalianMouseClicked
+
+    private void cariNamaViewKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cariNamaViewKeyPressed
+        // TODO add your handling code here:
+        tampilCariDataPengembalian(cariNamaView.getText());
+    }//GEN-LAST:event_cariNamaViewKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
