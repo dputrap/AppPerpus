@@ -63,8 +63,8 @@ public class modelBuku {
         //inisialisasi query untuk insert ke db
         String sql = ("INSERT INTO buku (idBuku, namaBuku, stok) "
                 + "VALUES ('"+getIdBukuModel()+"', "
-                + "'"+getNamaBukuModel()+"'"
-                + ", '"+getStok()+"')");
+                + "'"+getNamaBukuModel()+"', "
+                + "'"+getStok()+"')");
         try{
         //preparedstatement
         PreparedStatement eksekusi = koneksi.getKoneksi().prepareStatement(sql);

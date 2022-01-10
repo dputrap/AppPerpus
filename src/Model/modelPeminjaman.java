@@ -121,7 +121,7 @@ public class modelPeminjaman {
         
         String sql = "UPDATE peminjaman SET noAnggota = '"+getNoAnggotaModel()+"'"
                 + " ,idBuku = '"+getIdBukuModel()+"'"
-                + " ,statusBuku = '"+getIdBukuModel()+"'"
+                + " ,statusBuku = '"+getStatusBukuModel()+"'"
                 + " ,tglPinjam = '"+getTglPinjamModel()+"'"
                 + " ,durasiPinjam = '"+getDurasiPinjamModel()+"' WHERE idPinjam = '"+getIdPinjamModel()+"'";
         try{
