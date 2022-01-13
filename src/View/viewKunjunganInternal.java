@@ -49,7 +49,7 @@ public class viewKunjunganInternal extends javax.swing.JInternalFrame {
     }
 
     public JTextField getNamaView() {
-        return noAnggotaView;
+        return namaView;
     }
 
     public JTextField getNoAnggotaView() {
