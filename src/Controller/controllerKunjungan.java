@@ -55,9 +55,10 @@ public class controllerKunjungan {
     
     public void updateData(){
         mK = new modelKunjungan();
-        mK.setNoKunjungModel(vK.getNoKunjunganView().getText());
+        mK.setNoAnggotaModel(vK.getNoAnggotaView().getText());
         mK.setTglKunjungModel(vK.getTglKunjunganView().getText());
         mK.setTujuanKunjung(vK.getTujuanKunjunganView().getText());
+        
 
         mK.updateDataKunjung();
         bersihkan();
