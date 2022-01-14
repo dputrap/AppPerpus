@@ -134,7 +134,7 @@ public class viewAnggotaInternal extends javax.swing.JInternalFrame {
         
         if (data.equals("")){
             sql = "SELECT * FROM anggota";
-        }else sql = "SELECT * FROM datakunjungan WHERE nama LIKE '"+data+"%'";
+        }else sql = "SELECT * FROM anggota WHERE nama LIKE '"+data+"%'";
         
         try{
             Statement stat = (Statement)koneksiDatabase.getKoneksi().createStatement();

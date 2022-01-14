@@ -88,9 +88,9 @@ public class modelKunjungan {
                 + ", '"+getJenisKelaminModel()+"', '"+getUmur()+"', '"+getAlamat()+"')");
         */
         String sql = "UPDATE datakunjungan SET noAnggota = '"+getNoAnggotaModel()+"'"
-                + " ,tglKunjung = '"+getTglKunjungModel()+"'"
-                + " ,tujuanKunjung = '"+getTujuanKunjung()+"'"
-                + "WHERE noKunjung = '"+getNoKunjungModel()+"'";
+                + " ,tglKunjung = '"+getTglKunjungModel()+"' "
+                + " ,tujuanKunjung = '"+getTujuanKunjung()+"' WHERE noKunjung = '"+getNoKunjungModel()+"'";
+
         try{
         //preparedstatement
         PreparedStatement eksekusi = koneksi.getKoneksi().prepareStatement(sql);
