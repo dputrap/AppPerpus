@@ -1,5 +1,9 @@
 # AppPerpus
 
+ Universitas Singaperbangsa Karawang
+ 
+ Teknik Informatika
+
  Final Project Pemrograman Desktop untuk memenuhi syarat kelulusan Ujian Akhir Semester
  
  Final Project berupa java application hasil studi kasus perpustakaan
