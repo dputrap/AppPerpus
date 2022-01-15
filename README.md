@@ -12,13 +12,13 @@
  
 # Collaborators
 
-Brian Nur Ardiansyah  (1910631170067)
+1. Brian Nur Ardiansyah  (1910631170067)
 
-Danu Putra Prasetya   (1910631170171)
+2. Danu Putra Prasetya   (1910631170171)
 
-Rida Armeilia         (1910631170123)
+3. Rida Armeilia         (1910631170123)
 
-Tiara Destiana        (1910631170237)
+4. Tiara Destiana        (1910631170237)
 
 # Dosen 
 
