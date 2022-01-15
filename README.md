@@ -22,4 +22,4 @@ Tiara Destiana        (1910631170237)
 
 # Dosen 
 
-Kamal Prihandani
+Kamal Prihandani, M.Kom.
